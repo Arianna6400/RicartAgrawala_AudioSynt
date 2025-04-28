@@ -1,0 +1,1 @@
+// Funzioni del nodo

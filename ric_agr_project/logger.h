@@ -1,0 +1,1 @@
+// Interfaccia del logger

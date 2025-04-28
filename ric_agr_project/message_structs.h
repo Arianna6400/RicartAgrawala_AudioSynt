@@ -1,0 +1,1 @@
+// Definizioni dei messaggi (REQUEST, ACK, RELEASE)

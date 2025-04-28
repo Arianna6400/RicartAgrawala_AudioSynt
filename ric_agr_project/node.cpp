@@ -1,0 +1,1 @@
+// Nodo che implementa Ricart-Agrawala, gestisce l'audio

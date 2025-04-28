@@ -1,0 +1,1 @@
+// Interfaccia di comunicazione tra i nodi
