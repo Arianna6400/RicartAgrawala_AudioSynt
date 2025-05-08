@@ -1,10 +1,11 @@
-// Nodo che implementa Ricart-Agrawala, includendo le funzioni
-// dichiarate nel node.h
-
 #include "node.h"
 
 Node::Node(int id, int port)
-    : id_(id), port_(port), clock_(0), requesting_(false), ack_count_(0) {
+    : id_(id), port_(port), clock_(0),
+      requesting_(std::make_shared<std::atomic<bool>>(false)),
+      ack_count_(std::make_shared<std::atomic<int>>(0)),
+      mtx_(std::make_shared<std::mutex>()),
+      cv_(std::make_shared<std::condition_variable>()) {
     network_ = std::make_unique<Network>(port_);
 }
 
@@ -15,28 +16,28 @@ void Node::start() {
     std::this_thread::sleep_for(std::chrono::seconds(1)); // Aspetta che parta il server
 
     // Simulazione delle richieste periodiche di accesso alla traccia
-    for (int i=0; i<5; ++i) {
-        std::this_thread::sleep_for(std::chrono::seconds(5)); // RIchiedi ogni 5 secondi
+    for (int i = 0; i < 5; ++i) {
+        std::this_thread::sleep_for(std::chrono::seconds(5)); // Richiedi ogni 5 secondi
         request_critical_section();
     }
 }
 
 void Node::request_critical_section() {
-    requesting_ = true;
+    requesting_->store(true);
     clock_++;
-    std::cout << "[Node" << id_ << "] Sending REQUEST with clock: " << clock_ << std::endl;
+    std::cout << "[Node " << id_ << "] Sending REQUEST with clock: " << clock_ << std::endl;
 
     // Invia la richiesta a tutti gli altri nodi
-    for (int i=0; i<3; ++i) {
+    for (int i = 0; i < 3; ++i) {
         if (i != id_) {
-            std::string message = "REQUEST" + std::to_string(id_) + " " + std::to_string(clock_);
+            std::string message = "REQUEST " + std::to_string(id_) + " " + std::to_string(clock_);
             network_->send_message(i, message);
         }
     }
 
     // Aspetta che tutti gli ACK siano ricevuti
-    std::unique_lock<std::mutex> lock(mtx_);
-    cv_.wait(lock, [this] {return ack_count_ == 2; }); //  Aspetta di ricevere 2 ACK
+    std::unique_lock<std::mutex> lock(*mtx_);
+    cv_->wait(lock, [this] { return ack_count_->load() == 2; }); // Aspetta di ricevere 2 ACK
     enter_critical_section();
 }
 
@@ -47,11 +48,11 @@ void Node::enter_critical_section() {
 }
 
 void Node::release_critical_section() {
-    requesting_ = false;
+    requesting_->store(false);
     clock_++;
     std::cout << "[Node " << id_ << "] Sending RELEASE with clock: " << clock_ << std::endl;
 
-    // Rilascia la risorsa (cioè la tracccia) inviando RELEASE a tutti gli altri nodi
+    // Rilascia la risorsa (cioè la traccia) inviando RELEASE a tutti gli altri nodi
     for (int i = 0; i < 3; ++i) {
         if (i != id_) {
             std::string message = "RELEASE " + std::to_string(id_) + " " + std::to_string(clock_);
@@ -72,11 +73,22 @@ void Node::receive_message(const std::string& message) {
     // Elabora la logica per ciascun tipo di messaggio
     if (message.find("REQUEST") == 0) {
         // Invia ACK se il nodo non sta usando la traccia
-        ack_count_++;
+        ack_count_->fetch_add(1);
         std::string ack_message = "ACK " + std::to_string(id_) + " " + std::to_string(clock_);
         network_->send_message(id_, ack_message);
     } else if (message.find("RELEASE") == 0) {
         // Rilascia la traccia (se il nodo è in sezione critica)
         std::cout << "[Node " << id_ << "] Released the critical section." << std::endl;
     }
+}
+
+void Node::test_message_exchange() {
+    // Simula l'invio di una richiesta
+    std::string request_message = "REQUEST " + std::to_string(id_) + " " + std::to_string(clock_);
+    network_->send_message((id_ + 1) % 3, request_message);  // Invia a un altro nodo
+    network_->send_message((id_ + 2) % 3, request_message);  // Invia anche al terzo nodo
+
+    // Simula la ricezione e la risposta con un ACK
+    std::string received_message = "REQUEST " + std::to_string(id_) + " " + std::to_string(clock_);
+    receive_message(received_message);  // Simula la ricezione di un messaggio
 }

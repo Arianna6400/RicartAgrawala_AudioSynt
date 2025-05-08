@@ -19,11 +19,11 @@ public:
     // Invia un messaggio al nodo target (specificato da ID)
     void send_message(int target_id, const std::string& message);
 
+    // Carica la configurazione dei peer da file JSON
+    void load_config(const std::string& config_path);
+
 private:
     int port_;
     std::vector<std::tuple<int, std::string, int>> peers_;  // (node_id, host, port)
     std::function<void(const std::string&)> recv_cb_;
-
-    // Carica la configurazione dei peer da file JSON
-    void load_config(const std::string& config_path);
 };

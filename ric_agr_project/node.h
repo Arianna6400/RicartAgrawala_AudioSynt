@@ -8,6 +8,7 @@
 #include <atomic>
 #include <mutex>
 #include <condition_variable>
+#include <memory> // per gestire gli oggetti non copiabili
 #include <thread>
 #include "network.h"
 
@@ -34,14 +35,16 @@ public:
     // Funzione per ricevere i messaggi
     void receive_message(const std::string& message);
 
+    void test_message_exchange();
+
 private:
     int id_;    // ID del nodo
     int port_;  // Porta di comunicazione
     int clock_; // Clock logico per Ricart-Agrawala
-    std::atomic<bool> requesting_; // Flag che indica se il nodo sta richiedendo l'accesso
-    std::atomic<int> ack_count_;     // Contatore degli ACK ricevuti
-    std::mutex mtx_;                // Mutex per la sincronizzazione
-    std::condition_variable cv_;     // Variabile di condizione per la sincronizzazione
+    std::shared_ptr<std::atomic<bool>> requesting_; // Flag per la richiesta
+    std::shared_ptr<std::atomic<int>> ack_count_;  // Contatore degli ACK ricevuti
+    std::shared_ptr<std::mutex> mtx_;              // Mutex per la sincronizzazione
+    std::shared_ptr<std::condition_variable> cv_;  // Condizione per la sincronizzazione
     std::unique_ptr<Network> network_;  // Riferimento alla rete di comunicazione
 };
 

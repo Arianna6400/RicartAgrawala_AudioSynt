@@ -98,9 +98,9 @@ void Network::start_server() {
 
 void Network::send_message(int target_id, const std::string& message) {
     // Trova host e porta del peer
-    auto it = std::find_if(peers_.begin(), peers_.end(), [&](auto& tup) {
+    auto it = std::find_if(peers_.begin(), peers_.end(), [&](const std::tuple<int, std::string, int>& tup) {
         return std::get<0>(tup) == target_id;
-    });
+    });    
     if (it == peers_.end()) {
         std::cerr << "Network: peer " << target_id << " non trovato\n";
         return;
