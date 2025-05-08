@@ -102,7 +102,7 @@ void Network::send_message(int target_id, const std::string& message) {
         return std::get<0>(tup) == target_id;
     });    
     if (it == peers_.end()) {
-        std::cerr << "Network: peer " << target_id << " non trovato\n";
+        std::cerr << "Network: peer " << target_id << " not found\n";
         return;
     }
     std::string host = std::get<1>(*it);
