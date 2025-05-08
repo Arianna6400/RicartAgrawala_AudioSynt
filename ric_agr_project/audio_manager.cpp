@@ -15,7 +15,7 @@ bool loadAudio(const std::string& filepath,
     SF_INFO sfinfo{};
     SNDFILE* sndfile = sf_open(filepath.c_str(), SFM_READ, &sfinfo);
     if (!sndfile) {
-        std::cerr << "Errore apertura file audio: " << sf_strerror(nullptr) << std::endl;
+        std::cerr << "Error opening audio file: " << sf_strerror(nullptr) << std::endl;
         return false;
     }
     sampleRate = sfinfo.samplerate;
@@ -37,7 +37,7 @@ bool saveAudio(const std::string& filepath,
     sfinfo.format = SF_FORMAT_WAV | SF_FORMAT_PCM_16;
     SNDFILE* sndfile = sf_open(filepath.c_str(), SFM_WRITE, &sfinfo);
     if (!sndfile) {
-        std::cerr << "Errore apertura file per scrittura: " << sf_strerror(nullptr) << std::endl;
+        std::cerr << "Error opening audio file for writing: " << sf_strerror(nullptr) << std::endl;
         return false;
     }
     sf_count_t frames = buffer.size() / channels;
@@ -175,7 +175,7 @@ void processAudio(std::vector<float>& buffer,
 void playAudio(const std::string& filepath) {
     std::string cmd = "aplay '" + filepath + "'";
     if (std::system(cmd.c_str()) != 0) {
-        std::cerr << "Errore durante la riproduzione del file audio." << std::endl;
+        std::cerr << "Error playing audio file." << std::endl;
     }
 }
 
