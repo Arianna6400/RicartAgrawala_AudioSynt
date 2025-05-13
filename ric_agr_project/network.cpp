@@ -105,7 +105,7 @@ void Network::send_message(int target_id, const std::string& message) {
         return std::get<0>(tup) == target_id;
     });    
     if (it == peers_.end()) {
-        std::cerr << "Network: peer " << target_id << " non trovato\n";
+        std::cerr << "Network: peer " << target_id << " not found\n";
         std::cout << "[Network] peers_ size = " << peers_.size() << std::endl;
         std::cout << "[Network] peers_ = " << std::endl;
         for (const auto& [id, host, port] : peers_) {
