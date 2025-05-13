@@ -28,7 +28,7 @@ int main() {
         threads.push_back(std::thread(&Node::start, &node));  // Ogni nodo parte in un thread separato
     }
 
-    //std::this_thread::sleep_for(std::chrono::seconds(2));  //
+    //std::this_thread::sleep_for(std::chrono::seconds(2));  
 
     // Testare la comunicazione tra i nodi (simula l'invio dei messaggi)
     for (auto& node : nodes) {
