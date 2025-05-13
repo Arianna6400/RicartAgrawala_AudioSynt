@@ -1,10 +1,14 @@
 #include "node.h"
 #include "network.h"
+#include "logger.h"
 #include <thread>
 #include <vector>
 #include <unistd.h>
 
 int main() {
+    // Inizializza il file di log
+    Logger::initialize_log("logs.txt");
+
     // Leggi la configurazione da config.json
     // Carica il file di configurazione
     std::string config_path = "config.json";
@@ -45,6 +49,9 @@ int main() {
     for (auto& t : threads) {
         t.join();
     }
+
+    // Chiudi il file di log
+    Logger::close_log();
 
     return 0;
 }

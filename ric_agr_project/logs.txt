@@ -1,0 +1,4 @@
+[LOG] Node 1 sending REQUEST with clock 1
+[LOG] Node 1 sending REQUEST with clock 1
+[LOG] Node 0 sending REQUEST with clock 1
+[LOG] Node 2 sending REQUEST with clock 1
