@@ -1,4 +1,6 @@
 #include "node.h"
+#include "logger.h" // Logger incluso per l'utilizzo delle funzioni di log
+#include "message_structs.h"
 
 Node::Node(int id, int port)
     : id_(id), port_(port), clock_(0),
@@ -25,12 +27,14 @@ void Node::start() {
 void Node::request_critical_section() {
     requesting_->store(true);
     clock_++;
-    std::cout << "[Node " << id_ << "] Sending REQUEST with clock: " << clock_ << std::endl;
+    Logger::log_request(id_, clock_);  // Logga la richiesta
 
-    // Invia la richiesta a tutti gli altri nodi
+    // Serializza il messaggio REQUEST
+    std::string message = serialize_message(Message(MessageType::REQUEST, id_, clock_, 0));
+    
+    // Invia il messaggio serializzato a tutti gli altri nodi
     for (int i = 0; i < 3; ++i) {
         if (i != id_) {
-            std::string message = "REQUEST " + std::to_string(id_) + " " + std::to_string(clock_);
             network_->send_message(i, message);
         }
     }
@@ -42,6 +46,7 @@ void Node::request_critical_section() {
 }
 
 void Node::enter_critical_section() {
+    Logger::log_critical_section_entry(id_);  // Logga l'ingresso nella sezione critica
     std::cout << "[Node " << id_ << "] Entering critical section..." << std::endl;
     std::this_thread::sleep_for(std::chrono::seconds(2));  // Simula l'elaborazione di una risorsa (in questo caso traccia audio)
     release_critical_section();
@@ -50,12 +55,13 @@ void Node::enter_critical_section() {
 void Node::release_critical_section() {
     requesting_->store(false);
     clock_++;
+    Logger::log_critical_section_exit(id_);  // Logga l'uscita dalla sezione critica
     std::cout << "[Node " << id_ << "] Sending RELEASE with clock: " << clock_ << std::endl;
 
-    // Rilascia la risorsa (cioè la traccia) inviando RELEASE a tutti gli altri nodi
+    // Serializza il messaggio RELEASE e lo invia a tutti gli altri nodi
     for (int i = 0; i < 3; ++i) {
         if (i != id_) {
-            std::string message = "RELEASE " + std::to_string(id_) + " " + std::to_string(clock_);
+            std::string message = serialize_message(Message(MessageType::RELEASE, id_, clock_, 0));
             network_->send_message(i, message);
         }
     }
@@ -67,16 +73,19 @@ void Node::send_message(int target_node, const std::string& message) {
 }
 
 void Node::receive_message(const std::string& message) {
-    // Gestisce i messaggi ricevuti (REQUEST, ACK, RELEASE)
+    // Deserializza il messaggio ricevuto
+    Message received_msg = deserialize_message(message);
+
+    // Logga il messaggio ricevuto
     std::cout << "[Node " << id_ << "] Received message: " << message << std::endl;
-    
+
     // Elabora la logica per ciascun tipo di messaggio
-    if (message.find("REQUEST") == 0) {
+    if (received_msg.type == MessageType::REQUEST) {
         // Invia ACK se il nodo non sta usando la traccia
         ack_count_->fetch_add(1);
-        std::string ack_message = "ACK " + std::to_string(id_) + " " + std::to_string(clock_);
-        //network_->send_message(id_, ack_message);
-    } else if (message.find("RELEASE") == 0) {
+        std::string ack_message = serialize_message(Message(MessageType::ACK, id_, clock_, 0));
+        //network_->send_message(received_msg.sender_id, ack_message);  // Risponde con un ACK
+    } else if (received_msg.type == MessageType::RELEASE) {
         // Rilascia la traccia (se il nodo è in sezione critica)
         std::cout << "[Node " << id_ << "] Released the critical section." << std::endl;
     }
@@ -84,11 +93,11 @@ void Node::receive_message(const std::string& message) {
 
 void Node::test_message_exchange() {
     // Simula l'invio di una richiesta
-    std::string request_message = "REQUEST " + std::to_string(id_) + " " + std::to_string(clock_);
+    std::string request_message = serialize_message(Message(MessageType::REQUEST, id_, clock_, 0));
     network_->send_message((id_ + 1) % 3, request_message);  // Invia a un altro nodo
     network_->send_message((id_ + 2) % 3, request_message);  // Invia anche al terzo nodo
 
     // Simula la ricezione e la risposta con un ACK
-    std::string received_message = "REQUEST " + std::to_string(id_) + " " + std::to_string(clock_);
+    std::string received_message = serialize_message(Message(MessageType::REQUEST, id_, clock_, 0));
     receive_message(received_message);  // Simula la ricezione di un messaggio
 }
