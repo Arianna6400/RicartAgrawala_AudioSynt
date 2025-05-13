@@ -12,7 +12,7 @@ int main() {
     sleep(10);
     
     // Creazione dei nodi, passando l'ID e la porta (caricati dal config.json)
-    std::vector<Node> nodes;
+    /*std::vector<Node> nodes;
     for (int i = 0; i < 3; ++i) {
         int port = 8080 + i;  // Usa una porta diversa per ogni nodo
         nodes.push_back(Node(i, port));  // Crea un nodo con ID e porta specifica
@@ -22,13 +22,23 @@ int main() {
     std::vector<std::thread> threads;
     for (auto& node : nodes) {
         threads.push_back(std::thread(&Node::start, &node));  // Ogni nodo parte in un thread separato
-    }
+    }*/
 
-    //std::this_thread::sleep_for(std::chrono::seconds(2));  
+    std::vector<std::thread> threads;
+    std::vector<std::unique_ptr<Node>> nodes;
+    for (int i = 0; i < 3; ++i) {
+        int port = 8080 + i;
+        auto node = std::make_unique<Node>(i, port);
+        threads.push_back(std::thread(&Node::start, node.get()));
+        nodes.push_back(std::move(node));
+    }
+    
+
+    std::this_thread::sleep_for(std::chrono::seconds(2));  
 
     // Testare la comunicazione tra i nodi (simula l'invio dei messaggi)
     for (auto& node : nodes) {
-        node.test_message_exchange();  // Ogni nodo invia una richiesta di esempio
+        //node.test_message_exchange();  // Ogni nodo invia una richiesta di esempio
     }
 
     // Aspetta che tutti i thread siano completati

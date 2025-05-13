@@ -7,6 +7,9 @@ Node::Node(int id, int port)
       mtx_(std::make_shared<std::mutex>()),
       cv_(std::make_shared<std::condition_variable>()) {
     network_ = std::make_unique<Network>(port_);
+    network_->set_receive_callback([this](const std::string& msg) {
+        this->receive_message(msg);
+    });
 }
 
 void Node::start() {
@@ -16,10 +19,10 @@ void Node::start() {
     std::this_thread::sleep_for(std::chrono::seconds(1)); // Aspetta che parta il server
 
     // Simulazione delle richieste periodiche di accesso alla traccia
-    /*for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 5; ++i) {
         std::this_thread::sleep_for(std::chrono::seconds(5)); // Richiedi ogni 5 secondi
         request_critical_section();
-    }*/
+    }
 }
 
 void Node::request_critical_section() {
@@ -44,6 +47,7 @@ void Node::request_critical_section() {
 void Node::enter_critical_section() {
     std::cout << "[Node " << id_ << "] Entering critical section..." << std::endl;
     std::this_thread::sleep_for(std::chrono::seconds(2));  // Simula l'elaborazione di una risorsa (in questo caso traccia audio)
+    std::cout << "[Node " << id_ << "] AAAAAAAAAAAA" << std::endl;
     release_critical_section();
 }
 

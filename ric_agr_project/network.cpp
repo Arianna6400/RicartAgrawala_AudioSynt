@@ -140,6 +140,6 @@ void Network::send_message(int target_id, const std::string& message) {
 
     std::string msg = message + "\n";
     send(sock, msg.c_str(), msg.size(), 0);
-    std::cout << "[Network] Message sended to " << target_id << std::endl;
+    //std::cout << "[Network" << port_ << "] Message sended to " << target_id << std::endl;
     close(sock);
 }
