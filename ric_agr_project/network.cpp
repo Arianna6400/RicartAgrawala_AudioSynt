@@ -35,6 +35,9 @@ void Network::load_config(const std::string& config_path) {
         // Escludi se stesso
         if (port != port_) {
             peers_.emplace_back(id, host, port);
+            std::cout << "[Network" << port_ << "] Loaded peer: ID=" << id << ", host=" << host << ", port=" << port << std::endl;
+        } else {
+            std::cout << "[Network" << port_ << "] Skipping self: ID=" << id << ", host=" << host << ", port=" << port << std::endl;
         }
     }
 }
@@ -103,6 +106,11 @@ void Network::send_message(int target_id, const std::string& message) {
     });    
     if (it == peers_.end()) {
         std::cerr << "Network: peer " << target_id << " non trovato\n";
+        std::cout << "[Network] peers_ size = " << peers_.size() << std::endl;
+        std::cout << "[Network] peers_ = " << std::endl;
+        for (const auto& [id, host, port] : peers_) {
+            std::cout << "  - ID=" << id << ", host=" << host << ", port=" << port << "\n";
+        }
         return;
     }
     std::string host = std::get<1>(*it);
@@ -132,5 +140,6 @@ void Network::send_message(int target_id, const std::string& message) {
 
     std::string msg = message + "\n";
     send(sock, msg.c_str(), msg.size(), 0);
+    std::cout << "[Network] Message sended to " << target_id << std::endl;
     close(sock);
 }

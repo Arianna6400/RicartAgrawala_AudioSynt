@@ -16,10 +16,10 @@ void Node::start() {
     std::this_thread::sleep_for(std::chrono::seconds(1)); // Aspetta che parta il server
 
     // Simulazione delle richieste periodiche di accesso alla traccia
-    for (int i = 0; i < 5; ++i) {
+    /*for (int i = 0; i < 5; ++i) {
         std::this_thread::sleep_for(std::chrono::seconds(5)); // Richiedi ogni 5 secondi
         request_critical_section();
-    }
+    }*/
 }
 
 void Node::request_critical_section() {
@@ -75,7 +75,7 @@ void Node::receive_message(const std::string& message) {
         // Invia ACK se il nodo non sta usando la traccia
         ack_count_->fetch_add(1);
         std::string ack_message = "ACK " + std::to_string(id_) + " " + std::to_string(clock_);
-        network_->send_message(id_, ack_message);
+        //network_->send_message(id_, ack_message);
     } else if (message.find("RELEASE") == 0) {
         // Rilascia la traccia (se il nodo è in sezione critica)
         std::cout << "[Node " << id_ << "] Released the critical section." << std::endl;

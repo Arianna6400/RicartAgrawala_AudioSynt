@@ -2,14 +2,14 @@
 #include "network.h"
 #include <thread>
 #include <vector>
+#include <unistd.h>
 
 int main() {
     // Leggi la configurazione da config.json
     // Carica il file di configurazione
     std::string config_path = "config.json";
     
-    Network network(8080);  // Nodo server
-    network.load_config(config_path);  // Carica i nodi dal file di configurazione
+    sleep(10);
     
     // Creazione dei nodi, passando l'ID e la porta (caricati dal config.json)
     std::vector<Node> nodes;
@@ -23,6 +23,8 @@ int main() {
     for (auto& node : nodes) {
         threads.push_back(std::thread(&Node::start, &node));  // Ogni nodo parte in un thread separato
     }
+
+    //std::this_thread::sleep_for(std::chrono::seconds(2));  //
 
     // Testare la comunicazione tra i nodi (simula l'invio dei messaggi)
     for (auto& node : nodes) {
