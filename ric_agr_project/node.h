@@ -15,7 +15,7 @@
 class Node{
 public:
     // Costruttore del nodo
-    Node(int id, int port);
+    Node(int id, const std::string& host, int port, int num_nodes);
 
     // Funzione per avviare il nodo
     void start();
@@ -29,19 +29,17 @@ public:
     // Funzione per uscire dalla sezione critica
     void release_critical_section();
 
-    //void send_ack(int to);
-
     // Funzione per inviare i messaggi
     void send_message(int target_node, const std::string& message);
 
     // Funzione per ricevere i messaggi
     void receive_message(const std::string& message);
 
-    void test_message_exchange();
-
 private:
     int id_;    // ID del nodo
+    std::string host_; // Host del nodo
     int port_;  // Porta di comunicazione
+    int num_nodes_; // Numero totale nodi
     int clock_; // Clock logico per Ricart-Agrawala
     std::shared_ptr<std::atomic<bool>> requesting_; // Flag per la richiesta
     std::shared_ptr<std::atomic<int>> ack_count_;  // Contatore degli ACK ricevuti
@@ -50,7 +48,6 @@ private:
     std::unique_ptr<Network> network_;  // Riferimento alla rete di comunicazione
     std::vector<int> deferred_acks_;
     int my_request_ts_{0};
-    //static std::mutex cout_mtx;
     std::mutex clock_mtx_;
 };
 

@@ -6,8 +6,8 @@
 // Definizione del mutex statico
 //std::mutex Node::cout_mtx;
 
-Node::Node(int id, int port)
-    : id_(id), port_(port), clock_(0),
+Node::Node(int id, const std::string& host, int port, int num_nodes)
+    : id_(id), host_(host), port_(port), clock_(0), num_nodes_(num_nodes),
       requesting_(std::make_shared<std::atomic<bool>>(false)),
       ack_count_(std::make_shared<std::atomic<int>>(0)),
       mtx_(std::make_shared<std::mutex>()),
@@ -44,14 +44,6 @@ void Node::request_critical_section() {
         clock_++;
         my_request_ts_ = clock_;  // 🔥 fondamentale
     }
-    //my_request_ts_ = clock_;
-
-    /*{
-        std::lock_guard<std::mutex> lk(cout_mtx);
-        std::cout << "[LOG] Node " << id_
-                  << " sending REQUEST with clock "
-                  << my_request_ts_ << std::endl;
-    }*/
 
     Logger::log_request(id_, my_request_ts_);  // Logga la richiesta
 
@@ -63,7 +55,7 @@ void Node::request_critical_section() {
     std::string message = serialize_message(Message(MessageType::REQUEST, id_, my_request_ts_, 0));
     
     // Invia il messaggio serializzato a tutti gli altri nodi
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < num_nodes_; ++i) {
         if (i != id_) {
             network_->send_message(i, message);
         }
@@ -71,14 +63,7 @@ void Node::request_critical_section() {
 
     // Aspetta che tutti gli ACK siano ricevuti
     std::unique_lock<std::mutex> lock(*mtx_);
-    cv_->wait(lock, [this] { return ack_count_->load() == 2; }); // Aspetta di ricevere 2 ACK
-    /*std::lock_guard<std::mutex> lk(cout_mtx);
-    std::cout << "[DEBUG Node " << id_ << "] Trying to enter CS with ack_count=" 
-              << ack_count_->load() 
-              << ", deferred=" << deferred_acks_.size() 
-              //<< ", my_req_ts=" << my_request_ts_
-              << ", my_req_ts=" << clock_ 
-              << "\n";*/
+    cv_->wait(lock, [this] { return ack_count_->load() == num_nodes_ -1; }); // Aspetta di ricevere num_nodes - 1 ACK
     enter_critical_section();
 }
 
@@ -86,38 +71,22 @@ void Node::enter_critical_section() {
     Logger::log_critical_section_entry(id_);  // Logga l'ingresso nella sezione critica
     std::cout << "[Node " << id_ << "] Entering critical section..." << std::endl;
     std::this_thread::sleep_for(std::chrono::seconds(2));  // Simula l'elaborazione di una risorsa (in questo caso traccia audio)
-    std::cout << "[Node " << id_ << "] AAAAAAAAAAAA" << std::endl;
+    std::cout << "[Node " << id_ << "] Entered in critical section!!!" << std::endl;
     release_critical_section();
 }
-
-/*void Node::send_ack(int to) {
-    std::string ack = serialize_message(
-        Message{MessageType::ACK, id_, clock_, 0}
-    );
-    {
-        std::lock_guard<std::mutex> lk(cout_mtx);
-      std::cout << "[DEBUG Node "<<id_<<"] Sending deferred ACK to "<<to
-                <<" @clk="<<clock_<<"\n";
-    }
-    network_->send_message(to, ack);
-}*/
 
 void Node::release_critical_section() {
     requesting_->store(false);
     clock_++;
-    // Invia deferred **prima** di qualsiasi altra cosa
-    /*for (int pid : deferred_acks_) {
-        send_ack(pid);
-    }
-    deferred_acks_.clear();*/
+    
     Logger::log_critical_section_exit(id_);  // Logga l'uscita dalla sezione critica
     std::cout << "[Node " << id_ << "] Sending RELEASE with clock: " << clock_ << std::endl;
 
     // Serializza il messaggio RELEASE e lo invia a tutti gli altri nodi
-    for (int i = 0; i < 3; ++i) {
+    std::string release_message = serialize_message(Message(MessageType::RELEASE, id_, clock_, 0));
+    for (int i = 0; i < num_nodes_; ++i) {
         if (i != id_) {
-            std::string message = serialize_message(Message(MessageType::RELEASE, id_, clock_, 0));
-            network_->send_message(i, message);
+            network_->send_message(i, release_message);
         }
     }
 
@@ -128,7 +97,6 @@ void Node::release_critical_section() {
     }
     deferred_acks_.clear();
     ack_count_->store(0);
-
 }
 
 void Node::send_message(int target_node, const std::string& message) {
@@ -184,13 +152,3 @@ void Node::receive_message(const std::string& message) {
     }
 }
 
-void Node::test_message_exchange() {
-    // Simula l'invio di una richiesta
-    std::string request_message = serialize_message(Message(MessageType::REQUEST, id_, clock_, 0));
-    network_->send_message((id_ + 1) % 3, request_message);  // Invia a un altro nodo
-    network_->send_message((id_ + 2) % 3, request_message);  // Invia anche al terzo nodo
-
-    // Simula la ricezione e la risposta con un ACK
-    std::string received_message = serialize_message(Message(MessageType::REQUEST, id_, clock_, 0));
-    receive_message(received_message);  // Simula la ricezione di un messaggio
-}
