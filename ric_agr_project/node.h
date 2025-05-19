@@ -29,6 +29,8 @@ public:
     // Funzione per uscire dalla sezione critica
     void release_critical_section();
 
+    //void send_ack(int to);
+
     // Funzione per inviare i messaggi
     void send_message(int target_node, const std::string& message);
 
@@ -46,6 +48,10 @@ private:
     std::shared_ptr<std::mutex> mtx_;              // Mutex per la sincronizzazione
     std::shared_ptr<std::condition_variable> cv_;  // Condizione per la sincronizzazione
     std::unique_ptr<Network> network_;  // Riferimento alla rete di comunicazione
+    std::vector<int> deferred_acks_;
+    int my_request_ts_{0};
+    //static std::mutex cout_mtx;
+    std::mutex clock_mtx_;
 };
 
 #endif // NODE_H
