@@ -204,17 +204,17 @@ void processAudio(std::vector<float>& buffer,
                   int sampleRate,
                   int channels) {
     normalizeAudio(buffer);
-    applyFadeIn(buffer, sampleRate, channels, 100);
-    applyFadeOut(buffer, sampleRate, channels, 100);
-    applyEqualizer(buffer, sampleRate, channels, 200.0f, 5000.0f);
-    applyNoiseReduction(buffer, 0.01f);
-    applyCompression(buffer, 0.8f, 4.0f);
-    applyReverb(buffer, sampleRate, channels, 1.5f);
-    applyDelay(buffer, sampleRate, channels, 250, 0.5f);
+    // applyFadeIn(buffer, sampleRate, channels, 100);
+    // applyFadeOut(buffer, sampleRate, channels, 100);
+    // applyEqualizer(buffer, sampleRate, channels, 200.0f, 5000.0f);
+    // applyNoiseReduction(buffer, 0.01f);
+    // applyCompression(buffer, 0.8f, 4.0f);
+    // applyReverb(buffer, sampleRate, channels, 1.5f);
+    // applyDelay(buffer, sampleRate, channels, 250, 0.5f);
 }
 
 void playAudio(const std::string& filepath) {
-    std::string cmd = "aplay '" + filepath + "'";
+    std::string cmd = "vlc --intf dummy --no-video --no-dbus --play-and-exit \"" + filepath + "\"";
     if (std::system(cmd.c_str()) != 0) {
         std::cerr << "Error playing audio file." << std::endl;
     }

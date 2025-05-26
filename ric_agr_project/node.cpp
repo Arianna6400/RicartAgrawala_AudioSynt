@@ -75,13 +75,45 @@ void Node::enter_critical_section() {
     //std::cout << "[Node " << id_ << "] Entered in critical section!!!" << std::endl;
     std::vector<float> audio_buffer;
     int sampleRate, channels;
-    if (AudioManager::synthesizeTextToAudio("Ciao da nodo" + std::to_string(id_), audio_buffer, sampleRate, channels, id_)) {
+    if (AudioManager::synthesizeTextToAudio("Hello from node " + std::to_string(id_), audio_buffer, sampleRate, channels, id_)) {
+        std::cout << "[Node " << id_ << "] Audio generated, buffer size: " << audio_buffer.size() << " samples." << std::endl;
+
         AudioManager::processAudio(audio_buffer, sampleRate, channels);
-        AudioManager::saveAudio("final_output.wav", audio_buffer, sampleRate, channels);
-        AudioManager::playAudio("final_output.wav");
-}
+        if (AudioManager::saveAudio("output_audio/final_output.wav", audio_buffer, sampleRate, channels)) {
+            std::cout << "[Node " << id_ << "] Audio saved successfully!" << std::endl;
+
+            // Attendi che il file audio sia salvato correttamente prima di riprodurlo
+            AudioManager::playAudio("output_audio/final_output.wav");
+        }
+    } else {
+        std::cerr << "[Node " << id_ << "] Failed to synthesize audio!" << std::endl;
+    }
     release_critical_section();
 }
+
+// void Node::enter_critical_section() {
+//     Logger::log_critical_section_entry(id_);
+//     std::cout << "[Node " << id_ << "] Entering critical section..." << std::endl;
+
+//     std::vector<float> audio_buffer;
+//     int sampleRate, channels;
+
+//     // Leggi il testo da sintetizzare da riga di comando
+//     std::string input_text;
+//     std::cout << "Insert text: ";
+//     std::getline(std::cin, input_text);  // Legge l'intera riga di testo
+
+//     // Sintetizza il testo in audio
+//     if (AudioManager::synthesizeTextToAudio(input_text, audio_buffer, sampleRate, channels, id_)) {
+//         AudioManager::processAudio(audio_buffer, sampleRate, channels);
+//         AudioManager::saveAudio("output_audio/final_output.wav", audio_buffer, sampleRate, channels);
+//         AudioManager::playAudio("output_audio/final_output.wav");
+//     } else {
+//         std::cerr << "[Node " << id_ << "] Failed to synthesize audio!" << std::endl;
+//     }
+
+//     release_critical_section();
+// }
 
 void Node::release_critical_section() {
     requesting_->store(false);
