@@ -1,6 +1,8 @@
 from TTS.api import TTS # API di Mozilla Text-To-Speech
 import os
 import soundfile as sf
+import sys
+import urllib.parse
 
 # Funzione per generare tracce vocali
 def generate_audio(text, output_filename):
@@ -14,11 +16,15 @@ def generate_audio(text, output_filename):
     sf.write(output_filename, wav, 22050)  # 22050 è la frequenza di campionamento di default
     print(f"Audio generato: {output_filename}")
 
-# Testo da sintetizzare
-text = "Hello, this is a track for our distributed system!"
+if __name__ == "__main__":
+    if len(sys.argv) != 3:
+        print("Usage: python3 synthesizer.py <node_id> <text>")
+        sys.exit(1)
 
-# Creazione del file audio
-output_filename = os.path.join("output_audio", "output_0.wav")
-os.makedirs("output_audio", exist_ok=True)
+    node_id = sys.argv[1]
+    encoded_text = sys.argv[2]
+    text = urllib.parse.unquote(encoded_text)
 
-generate_audio(text, output_filename)
+    os.makedirs("output_audio", exist_ok=True)
+    output_path = os.path.join("output_audio", f"output_{node_id}.wav")
+    generate_audio(text, output_path)

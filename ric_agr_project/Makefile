@@ -5,7 +5,7 @@ TARGET = node_simulator
 CXX = g++
 
 # Flags di compilazione
-CXXFLAGS = -std=c++14 -Wall -g
+CXXFLAGS = -std=c++17 -Wall -g
 
 # Directory dei file sorgenti
 SRC_DIR = .

@@ -1,10 +1,14 @@
 // audio_manager.cpp
 #include "audio_manager.h"
 #include <sndfile.h>
+#include <fstream>
 #include <iostream>
 #include <cstdlib>
 #include <cmath>
 #include <deque>
+#include <filesystem>
+
+namespace fs = std::filesystem;
 
 namespace AudioManager {
 
@@ -25,6 +29,43 @@ bool loadAudio(const std::string& filepath,
     sf_count_t readcount = sf_readf_float(sndfile, buffer.data(), frames);
     sf_close(sndfile);
     return (readcount == frames);
+}
+
+// Funzione per URL-encoding minimale
+std::string url_encode(const std::string& str) {
+    std::ostringstream encoded;
+    for (char c : str) {
+        if (isalnum(c) || c == '-' || c == '_' || c == '.' || c == '~') {
+            encoded << c;
+        } else {
+            encoded << '%' << std::hex << std::uppercase << std::setw(2) << std::setfill('0') << (int)(unsigned char)c;
+        }
+    }
+    return encoded.str();
+}
+
+// Funzione chiave: genera l’audio da testo
+bool synthesizeTextToAudio(const std::string& text,
+    std::vector<float>& buffer,
+    int& sampleRate,
+    int& channels,
+    int node_id) {
+std::string output_file = "output_audio/output_" + std::to_string(node_id) + ".wav";
+std::string safe_text = url_encode(text);
+std::string cmd = "python3 audio_synthesizer/synthesizer.py " + std::to_string(node_id) + " \"" + safe_text + "\"";
+
+int result = std::system(cmd.c_str());
+if (result != 0) {
+std::cerr << "synthesizer.py execution failed\n";
+return false;
+}
+
+if (!fs::exists(output_file)) {
+std::cerr << "Generated audio file not found: " << output_file << "\n";
+return false;
+}
+
+return loadAudio(output_file, buffer, sampleRate, channels);
 }
 
 bool saveAudio(const std::string& filepath,

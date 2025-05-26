@@ -133,3 +133,362 @@
 [LOG] Node 0 exiting critical section
 [LOG] Node 2 entering critical section
 [LOG] Node 2 exiting critical section
+[LOG] Node 2 sending REQUEST with clock 1
+[LOG] Node 2 entering critical section
+[LOG] Node 2 exiting critical section
+[LOG] Node 0 sending REQUEST with clock 3
+[LOG] Node 0 entering critical section
+[LOG] Node 0 exiting critical section
+[LOG] Node 1 sending REQUEST with clock 5
+[LOG] Node 1 entering critical section
+[LOG] Node 1 exiting critical section
+[LOG] Node 1 sending REQUEST with clock 14
+[LOG] Node 1 entering critical section
+[LOG] Node 1 exiting critical section
+[LOG] Node 2 sending REQUEST with clock 16
+[LOG] Node 2 entering critical section
+[LOG] Node 2 exiting critical section
+[LOG] Node 0 sending REQUEST with clock 18
+[LOG] Node 0 entering critical section
+[LOG] Node 0 exiting critical section
+[LOG] Node 0 sending REQUEST with clock 25
+[LOG] Node 0 entering critical section
+[LOG] Node 0 exiting critical section
+[LOG] Node 0 sending REQUEST with clock 30
+[LOG] Node 0 entering critical section
+[LOG] Node 0 exiting critical section
+[LOG] Node 1 sending REQUEST with clock 32
+[LOG] Node 1 entering critical section
+[LOG] Node 1 exiting critical section
+[LOG] Node 2 sending REQUEST with clock 34
+[LOG] Node 2 entering critical section
+[LOG] Node 2 exiting critical section
+[LOG] Node 1 sending REQUEST with clock 40
+[LOG] Node 1 entering critical section
+[LOG] Node 1 exiting critical section
+[LOG] Node 0 sending REQUEST with clock 42
+[LOG] Node 0 entering critical section
+[LOG] Node 0 exiting critical section
+[LOG] Node 1 sending REQUEST with clock 46
+[LOG] Node 1 entering critical section
+[LOG] Node 1 exiting critical section
+[LOG] Node 2 sending REQUEST with clock 48
+[LOG] Node 2 entering critical section
+[LOG] Node 2 exiting critical section
+[LOG] Node 2 sending REQUEST with clock 55
+[LOG] Node 2 entering critical section
+[LOG] Node 2 exiting critical section
+[LOG] Node 1 sending REQUEST with clock 1
+[LOG] Node 1 entering critical section
+[LOG] Node 1 exiting critical section
+[LOG] Node 2 sending REQUEST with clock 3
+[LOG] Node 2 entering critical section
+[LOG] Node 0 sending REQUEST with clock 5
+[LOG] Node 2 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 0 exiting critical section
+[LOG] Node 2 sending REQUEST with clock 10
+[LOG] Node 2 entering critical section
+[LOG] Node 2 exiting critical section
+[LOG] Node 0 sending REQUEST with clock 13
+[LOG] Node 0 entering critical section
+[LOG] Node 0 exiting critical section
+[LOG] Node 1 sending REQUEST with clock 15
+[LOG] Node 1 entering critical section
+[LOG] Node 1 exiting critical section
+[LOG] Node 2 sending REQUEST with clock 17
+[LOG] Node 2 entering critical section
+[LOG] Node 2 exiting critical section
+[LOG] Node 2 sending REQUEST with clock 1
+[LOG] Node 2 entering critical section
+[LOG] Node 2 exiting critical section
+[LOG] Node 1 sending REQUEST with clock 3
+[LOG] Node 1 entering critical section
+[LOG] Node 1 exiting critical section
+[LOG] Node 0 sending REQUEST with clock 5
+[LOG] Node 0 entering critical section
+[LOG] Node 0 exiting critical section
+[LOG] Node 1 sending REQUEST with clock 10
+[LOG] Node 1 entering critical section
+[LOG] Node 1 exiting critical section
+[LOG] Node 0 sending REQUEST with clock 14
+[LOG] Node 0 entering critical section
+[LOG] Node 0 exiting critical section
+[LOG] Node 2 sending REQUEST with clock 16
+[LOG] Node 2 entering critical section
+[LOG] Node 2 exiting critical section
+[LOG] Node 2 sending REQUEST with clock 1
+[LOG] Node 2 entering critical section
+[LOG] Node 1 sending REQUEST with clock 3
+[LOG] Node 0 sending REQUEST with clock 5
+[LOG] Node 2 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 2 sending REQUEST with clock 8
+[LOG] Node 1 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 1 sending REQUEST with clock 11
+[LOG] Node 0 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 0 sending REQUEST with clock 14
+[LOG] Node 2 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 2 sending REQUEST with clock 17
+[LOG] Node 1 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 1 sending REQUEST with clock 20
+[LOG] Node 0 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 0 sending REQUEST with clock 23
+[LOG] Node 2 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 2 sending REQUEST with clock 26
+[LOG] Node 1 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 1 sending REQUEST with clock 29
+[LOG] Node 0 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 0 sending REQUEST with clock 32
+[LOG] Node 2 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 2 sending REQUEST with clock 35
+[LOG] Node 1 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 1 sending REQUEST with clock 38
+[LOG] Node 0 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 0 sending REQUEST with clock 41
+[LOG] Node 2 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 1 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 0 exiting critical section
+[LOG] Node 2 sending REQUEST with clock 1
+[LOG] Node 2 entering critical section
+[LOG] Node 1 sending REQUEST with clock 3
+[LOG] Node 0 sending REQUEST with clock 3
+[LOG] Node 2 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 2 sending REQUEST with clock 8
+[LOG] Node 0 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 0 sending REQUEST with clock 11
+[LOG] Node 1 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 1 sending REQUEST with clock 14
+[LOG] Node 2 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 2 sending REQUEST with clock 17
+[LOG] Node 0 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 0 sending REQUEST with clock 20
+[LOG] Node 1 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 1 sending REQUEST with clock 23
+[LOG] Node 2 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 2 sending REQUEST with clock 26
+[LOG] Node 0 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 0 sending REQUEST with clock 29
+[LOG] Node 1 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 1 sending REQUEST with clock 32
+[LOG] Node 2 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 2 sending REQUEST with clock 35
+[LOG] Node 0 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 0 sending REQUEST with clock 38
+[LOG] Node 1 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 1 sending REQUEST with clock 41
+[LOG] Node 2 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 0 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 1 exiting critical section
+[LOG] Node 1 sending REQUEST with clock 1
+[LOG] Node 1 entering critical section
+[LOG] Node 0 sending REQUEST with clock 3
+[LOG] Node 2 sending REQUEST with clock 3
+[LOG] Node 1 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 0 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 1 sending REQUEST with clock 8
+[LOG] Node 0 sending REQUEST with clock 11
+[LOG] Node 2 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 2 sending REQUEST with clock 14
+[LOG] Node 1 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 1 sending REQUEST with clock 17
+[LOG] Node 0 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 0 sending REQUEST with clock 20
+[LOG] Node 2 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 2 sending REQUEST with clock 23
+[LOG] Node 1 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 1 sending REQUEST with clock 26
+[LOG] Node 0 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 0 sending REQUEST with clock 29
+[LOG] Node 2 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 2 sending REQUEST with clock 32
+[LOG] Node 1 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 1 sending REQUEST with clock 35
+[LOG] Node 0 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 0 sending REQUEST with clock 38
+[LOG] Node 2 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 1 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 0 exiting critical section
+[LOG] Node 0 sending REQUEST with clock 1
+[LOG] Node 2 sending REQUEST with clock 1
+[LOG] Node 0 sending REQUEST with clock 1
+[LOG] Node 0 entering critical section
+[LOG] Node 1 sending REQUEST with clock 4
+[LOG] Node 0 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 2 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 0 sending REQUEST with clock 7
+[LOG] Node 2 sending REQUEST with clock 10
+[LOG] Node 1 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 1 sending REQUEST with clock 13
+[LOG] Node 0 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 0 sending REQUEST with clock 16
+[LOG] Node 2 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 2 sending REQUEST with clock 19
+[LOG] Node 1 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 1 sending REQUEST with clock 22
+[LOG] Node 0 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 0 sending REQUEST with clock 25
+[LOG] Node 2 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 2 sending REQUEST with clock 28
+[LOG] Node 1 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 1 sending REQUEST with clock 31
+[LOG] Node 0 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 2 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 1 exiting critical section
+[LOG] Node 1 sending REQUEST with clock 1
+[LOG] Node 1 entering critical section
+[LOG] Node 0 sending REQUEST with clock 3
+[LOG] Node 2 sending REQUEST with clock 3
+[LOG] Node 1 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 1 sending REQUEST with clock 8
+[LOG] Node 0 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 0 sending REQUEST with clock 11
+[LOG] Node 2 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 2 sending REQUEST with clock 14
+[LOG] Node 1 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 1 sending REQUEST with clock 17
+[LOG] Node 0 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 0 sending REQUEST with clock 20
+[LOG] Node 2 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 2 sending REQUEST with clock 23
+[LOG] Node 1 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 1 sending REQUEST with clock 26
+[LOG] Node 0 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 0 sending REQUEST with clock 29
+[LOG] Node 2 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 2 sending REQUEST with clock 32
+[LOG] Node 1 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 0 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 2 exiting critical section
+[LOG] Node 2 sending REQUEST with clock 1
+[LOG] Node 2 entering critical section
+[LOG] Node 0 sending REQUEST with clock 3
+[LOG] Node 1 sending REQUEST with clock 5
+[LOG] Node 2 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 2 sending REQUEST with clock 8
+[LOG] Node 0 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 1 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 2 exiting critical section
+[LOG] Node 0 sending REQUEST with clock 1
+[LOG] Node 0 sending REQUEST with clock 1
+[LOG] Node 2 sending REQUEST with clock 1
+[LOG] Node 0 entering critical section
+[LOG] Node 1 sending REQUEST with clock 4
+[LOG] Node 0 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 0 sending REQUEST with clock 8
+[LOG] Node 2 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 2 sending REQUEST with clock 11
+[LOG] Node 1 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 1 sending REQUEST with clock 14
+[LOG] Node 0 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 0 sending REQUEST with clock 17
+[LOG] Node 2 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 2 sending REQUEST with clock 20
+[LOG] Node 1 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 1 sending REQUEST with clock 23
+[LOG] Node 0 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 0 sending REQUEST with clock 26
+[LOG] Node 2 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 2 sending REQUEST with clock 29
+[LOG] Node 1 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 1 sending REQUEST with clock 32
+[LOG] Node 0 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 0 sending REQUEST with clock 35
+[LOG] Node 2 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 2 sending REQUEST with clock 38
+[LOG] Node 1 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 1 sending REQUEST with clock 41
+[LOG] Node 0 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 2 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 1 exiting critical section
+[LOG] Node 1 sending REQUEST with clock 1
+[LOG] Node 1 entering critical section
+[LOG] Node 2 sending REQUEST with clock 3
+[LOG] Node 0 sending REQUEST with clock 5
+[LOG] Node 1 exiting critical section
+[LOG] Node 2 entering critical section
+[LOG] Node 1 sending REQUEST with clock 8
+[LOG] Node 2 exiting critical section
+[LOG] Node 0 entering critical section
+[LOG] Node 0 exiting critical section
+[LOG] Node 1 entering critical section
+[LOG] Node 1 exiting critical section

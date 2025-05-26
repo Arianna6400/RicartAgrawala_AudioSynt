@@ -17,6 +17,12 @@ namespace AudioManager {
                    int sampleRate,
                    int channels);
 
+    bool synthesizeTextToAudio(const std::string& text,
+                    std::vector<float>& buffer,
+                    int& sampleRate,
+                    int& channels,
+                    int node_id);
+
     /**
      * Normalizza il buffer audio al picco massimo.
      */

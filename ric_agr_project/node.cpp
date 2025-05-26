@@ -2,6 +2,7 @@
 #include "logger.h" // Logger incluso per l'utilizzo delle funzioni di log
 #include "message_structs.h"
 #include <random>
+#include "audio_manager.h"
 
 // Definizione del mutex statico
 //std::mutex Node::cout_mtx;
@@ -70,8 +71,15 @@ void Node::request_critical_section() {
 void Node::enter_critical_section() {
     Logger::log_critical_section_entry(id_);  // Logga l'ingresso nella sezione critica
     std::cout << "[Node " << id_ << "] Entering critical section..." << std::endl;
-    std::this_thread::sleep_for(std::chrono::seconds(2));  // Simula l'elaborazione di una risorsa (in questo caso traccia audio)
-    std::cout << "[Node " << id_ << "] Entered in critical section!!!" << std::endl;
+    //std::this_thread::sleep_for(std::chrono::seconds(2));  // Simula l'elaborazione di una risorsa (in questo caso traccia audio)
+    //std::cout << "[Node " << id_ << "] Entered in critical section!!!" << std::endl;
+    std::vector<float> audio_buffer;
+    int sampleRate, channels;
+    if (AudioManager::synthesizeTextToAudio("Ciao da nodo" + std::to_string(id_), audio_buffer, sampleRate, channels, id_)) {
+        AudioManager::processAudio(audio_buffer, sampleRate, channels);
+        AudioManager::saveAudio("final_output.wav", audio_buffer, sampleRate, channels);
+        AudioManager::playAudio("final_output.wav");
+}
     release_critical_section();
 }
 
