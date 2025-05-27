@@ -25,6 +25,8 @@ public:
 
     // Funzione per entrare nella sezione critica 
     void enter_critical_section();
+    
+    void simulateNodeCommunication();
 
     // Funzione per uscire dalla sezione critica
     void release_critical_section();
