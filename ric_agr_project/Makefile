@@ -29,9 +29,12 @@ install_deps:
 	# Verifica e installa libsndfile
 	@echo "Verifica se libsndfile è installata..."
 	@dpkg -s libsndfile1-dev || sudo apt-get install -y libsndfile1-dev
-	# Verifica e installa nlohmann-json
+	# Verifica e installa nlohmann/json
 	@echo "Verifica se nlohmann/json è installata..."
 	@dpkg -s nlohmann-json3-dev || sudo apt-get install -y nlohmann-json3-dev
+	# Verifica e installa VLC
+	@echo "Verifica se VLC è installato..."
+	@dpkg -s vlc || sudo apt-get install -y vlc
 
 # Regola di compilazione per il target finale (eseguibile)
 $(TARGET): $(OBJ_DIR) $(OBJECTS)
