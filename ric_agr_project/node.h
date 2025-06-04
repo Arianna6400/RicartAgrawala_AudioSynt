@@ -41,8 +41,8 @@ private:
     int id_;    // ID del nodo
     std::string host_; // Host del nodo
     int port_;  // Porta di comunicazione
-    int num_nodes_; // Numero totale nodi
     int clock_; // Clock logico per Ricart-Agrawala
+    int num_nodes_; // Numero totale nodi
     std::shared_ptr<std::atomic<bool>> requesting_; // Flag per la richiesta
     std::shared_ptr<std::atomic<int>> ack_count_;  // Contatore degli ACK ricevuti
     std::shared_ptr<std::mutex> mtx_;              // Mutex per la sincronizzazione

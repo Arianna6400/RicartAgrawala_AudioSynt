@@ -98,6 +98,20 @@ void normalizeAudio(std::vector<float>& buffer) {
     }
 }
 
+void processAudio(std::vector<float>& buffer,
+                  int sampleRate,
+                  int channels) {
+    normalizeAudio(buffer);
+}
+
+void playAudio(const std::string& filepath) {
+    std::string cmd = "vlc --intf dummy --no-video --no-dbus --play-and-exit \"" + filepath + "\"";
+    if (std::system(cmd.c_str()) != 0) {
+        std::cerr << "Error playing audio file." << std::endl;
+    }
+}
+
+// FUNZIONI OPZIONALI PER APPLICARE EFFETTI SONORI (NON USATE)
 void applyFadeIn(std::vector<float>& buffer,
                  int sampleRate,
                  int channels,
@@ -197,26 +211,6 @@ void applyDelay(std::vector<float>& buffer,
         float out = in + delayed * feedback;
         dbuf.push_back(out);
         buffer[i] = out;
-    }
-}
-
-void processAudio(std::vector<float>& buffer,
-                  int sampleRate,
-                  int channels) {
-    normalizeAudio(buffer);
-    // applyFadeIn(buffer, sampleRate, channels, 100);
-    // applyFadeOut(buffer, sampleRate, channels, 100);
-    // applyEqualizer(buffer, sampleRate, channels, 200.0f, 5000.0f);
-    // applyNoiseReduction(buffer, 0.01f);
-    // applyCompression(buffer, 0.8f, 4.0f);
-    // applyReverb(buffer, sampleRate, channels, 1.5f);
-    // applyDelay(buffer, sampleRate, channels, 250, 0.5f);
-}
-
-void playAudio(const std::string& filepath) {
-    std::string cmd = "vlc --intf dummy --no-video --no-dbus --play-and-exit \"" + filepath + "\"";
-    if (std::system(cmd.c_str()) != 0) {
-        std::cerr << "Error playing audio file." << std::endl;
     }
 }
 
