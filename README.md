@@ -93,9 +93,13 @@ python -m TTS.utils.download --model_name "tts_models/en/ljspeech/tacotron2-DDC"
 ## 🎮 Funzionalità
 
 ✔ Sistema distribuito basato sull'algoritmo di Ricart-Agrawala
+
 ✔ Sintesi vocale con Mozilla TTS
+
 ✔ Prevenzione del deadlock
+
 ✔ Comunicazione tra nodi tramite TCP/IP
+
 ✔ Integrazione fluida del feedback vocale
 
 ---
@@ -146,26 +150,6 @@ flowchart TD
 │── logger.cpp            # Logger per tracciare gli eventi
 │── audio_manager.cpp     # Gestione audio per la sintesi vocale
 ```
-
----
-
-## 📌 Esempio di Utilizzo
-
-1. **Esegui il sintetizzatore**:
-
-   ```bash
-   python synthesizer.py
-   ```
-
-   Questo genererà un file `.WAV` con la voce sintetizzata.
-
-2. **Simula il comportamento dei nodi**:
-
-   ```bash
-   make run
-   ```
-
-   Questo eseguirà il simulatore multi-nodo, implementando il protocollo Ricart-Agrawala.
 
 ---
 
